@@ -1,5 +1,17 @@
+queue_rules:
+  - name: default
+    merge_method: merge
+    queue_conditions: []
+    merge_conditions:
+      - check-success = vm1-qpos-hold-never
+
 pull_request_rules:
-  - name: VM1 fresh baseline
+  - name: VM1 queue-position definitive dequeue discriminator
     conditions:
-      - -draft
-    actions: {}
+      - title = VM1_QPOS_DEQUEUE_260917
+      - queue-position >= 0
+      - -queue-name = default
+    actions:
+      label:
+        add:
+          - vm1-qpos-proof-260917
