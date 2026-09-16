@@ -1,5 +1,17 @@
+queue_rules:
+  - name: vm1-r62p-queue-260917
+    merge_method: merge-batch
+    batch_size: 2
+    batch_max_wait_time: 10 min
+    checks_timeout: null
+    queue_conditions: []
+    merge_conditions:
+      - check-success = vm1-r62p-hold-never
+
 pull_request_rules:
-  - name: VM1 fresh baseline
+  - name: VM1 Root62 protected-generation queue
     conditions:
-      - -draft
-    actions: {}
+      - base = vm1-r62p-old-260917
+    actions:
+      queue:
+        name: vm1-r62p-queue-260917
