@@ -1,5 +1,10 @@
 pull_request_rules:
-  - name: VM1 fresh baseline
+  - name: VM1 deleted label fresh-event discriminator
     conditions:
-      - -draft
-    actions: {}
+      - title = VM1_LABEL_DELETE_FRESH_EVENT_260917
+      - label = vm1-labeldel-security-260917
+      - check-success = vm1-labeldel-trigger-260917
+    actions:
+      label:
+        add:
+          - vm1-labeldel-proof-260917
