@@ -1,5 +1,17 @@
+queue_rules:
+  - name: default
+    merge_method: merge
+    queue_conditions: []
+    merge_conditions:
+      - check-success = vm1-qreason-hold-never
+
 pull_request_rules:
-  - name: VM1 fresh baseline
+  - name: VM1 dequeue-reason requeue cross-session discriminator
     conditions:
-      - -draft
-    actions: {}
+      - title = VM1_QREASON_REQUEUE_260917
+      - queue-dequeue-reason = PR_MANUALLY_DEQUEUED
+      - queue-name = default
+    actions:
+      label:
+        add:
+          - vm1-qreason-proof-260917
