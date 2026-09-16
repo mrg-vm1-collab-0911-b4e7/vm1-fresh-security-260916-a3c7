@@ -1,5 +1,24 @@
+scopes:
+  source:
+    manual:
+
 pull_request_rules:
-  - name: VM1 fresh baseline
+  - name: VM1 structural manual scope note probe
     conditions:
-      - -draft
-    actions: {}
+      - title = VM1_SCOPE_YAML_NOTE_TRIGGER_260917
+    actions:
+      queue:
+        name: vm1 structural scope note probe
+
+queue_rules:
+  - name: vm1 structural scope note probe
+    batch_size: 1
+    max_checks_retries: 1
+    queue_conditions:
+      - title = VM1_SCOPE_YAML_NOTE_TRIGGER_260917
+    merge_conditions:
+      - check-success = VM1_NEVER_SCOPE_NOTE_260917
+
+merge_queue:
+  mode: serial
+  max_parallel_checks: 1
