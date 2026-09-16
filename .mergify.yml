@@ -1,5 +1,20 @@
 pull_request_rules:
-  - name: VM1 fresh baseline
+  - name: VM1 enqueue merge-bot config freshness
     conditions:
-      - -draft
-    actions: {}
+      - title = VM1_MERGEBOT_CONFIG_REVOKE_260917
+    actions:
+      queue:
+        name: vm1 merge-bot config freshness
+
+queue_rules:
+  - name: vm1 merge-bot config freshness
+    batch_size: 1
+    merge_bot_account: livastic-vm1-primary
+    queue_conditions:
+      - title = VM1_MERGEBOT_CONFIG_REVOKE_260917
+    merge_conditions:
+      - label = vm1-merge-go-260917
+
+merge_queue:
+  mode: serial
+  max_parallel_checks: 1
