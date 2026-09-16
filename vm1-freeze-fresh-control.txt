@@ -1,0 +1,1 @@
+VM1 fresh control should be frozen on renamed base
