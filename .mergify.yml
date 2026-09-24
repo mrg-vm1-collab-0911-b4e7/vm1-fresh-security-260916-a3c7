@@ -1,28 +1,5 @@
-merge_protections_settings:
-  post_comment: false
-
-merge_protections:
-  - name: VM1_REVIEWREQ_STATIC_READ_PROTECTED_260924
-    if:
-      - base = vm1-reviewreq-static-read-base-260924
-      - title = VM1_REVIEWREQ_STATIC_READ_PROTECTED_260924
-      - author = livastic-vm1-secondary
-    success_conditions:
-      - review-requested = @vm1-reviewreq-static-read-260924
-
 pull_request_rules:
   - name: VM1 fresh baseline
     conditions:
       - -draft
     actions: {}
-
-  - name: VM1_REVIEWREQ_STATIC_READ_PROTECTED_260924
-    conditions:
-      - author = livastic-vm1-secondary
-      - base = vm1-reviewreq-static-read-base-260924
-      - title = VM1_REVIEWREQ_STATIC_READ_PROTECTED_260924
-      - -draft
-      - review-requested = @vm1-reviewreq-static-read-260924
-    actions:
-      merge:
-        method: merge
