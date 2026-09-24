@@ -1,3 +1,27 @@
+merge_queue:
+  max_parallel_checks: 1
+
+queue_rules:
+  - name: default
+    merge_method: merge
+    batch_size: 1
+    queue_conditions:
+      - check-success = direct-guard
+    merge_conditions: []
+
+scopes:
+  source:
+    files:
+      dm-x:
+        include:
+          - dm/x/**
+      dm-y:
+        include:
+          - dm/y/**
+  barrier_files:
+    include:
+      - dm/barrier/**
+
 pull_request_rules:
   - name: VM1 fresh baseline
     conditions:
