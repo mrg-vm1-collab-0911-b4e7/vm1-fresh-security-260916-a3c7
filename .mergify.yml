@@ -3,13 +3,3 @@ pull_request_rules:
     conditions:
       - -draft
     actions: {}
-
-  - name: VM1 same-context completion-order probe 260924
-    conditions:
-      - base = vm1-order-base-260924
-      - title = VM1_CHECK_COMPLETION_ORDER_PROBE_260924
-      - check-success = @github-actions/vm1-ordering-gate
-    actions:
-      comment:
-        message: VM1_ORDER_MERGIFY_SUCCESS_SENTINEL_260924
-
