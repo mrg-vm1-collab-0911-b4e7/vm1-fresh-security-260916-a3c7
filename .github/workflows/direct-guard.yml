@@ -1,0 +1,22 @@
+name: direct-guard
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  direct-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Reject combined barrier plus candidate state
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -f dm/barrier/global.marker && -f dm/y/attack.marker ]]; then
+            echo "VM1_DM_BARRIER_COMBINED_FAIL=true"
+            exit 1
+          fi
+          echo "VM1_DM_SOURCE_SAFE=true"
