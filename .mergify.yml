@@ -1,5 +1,6 @@
-pull_request_rules:
-  - name: VM1 fresh baseline
+commands_restrictions:
+  backport:
     conditions:
-      - -draft
-    actions: {}
+      - sender-permission >= write
+
+pull_request_rules: []
