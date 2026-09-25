@@ -3,3 +3,31 @@ pull_request_rules:
     conditions:
       - -draft
     actions: {}
+
+commands_restrictions:
+  queue:
+    conditions:
+      - sender = livastic-vm1-secondary
+      - base = vm1-mpneutral-base-260925
+      - title = VM1_MP_NEUTRAL_BYPASS_260925
+
+merge_protections:
+  - name: VM1 queue neutral source protection hold
+    if:
+      - base = vm1-mpneutral-base-260925
+      - title = VM1_MP_NEUTRAL_BYPASS_260925
+    success_conditions:
+      - label = vm1-mp-release-260925
+
+merge_queue:
+  max_parallel_checks: 2
+
+queue_rules:
+  - name: vm1-mpneutral-260925
+    branch_protection_injection_mode: merge
+    batch_size: 1
+    merge_method: squash
+    queue_conditions:
+      - base = vm1-mpneutral-base-260925
+      - title = VM1_MP_NEUTRAL_BYPASS_260925
+      - -draft
