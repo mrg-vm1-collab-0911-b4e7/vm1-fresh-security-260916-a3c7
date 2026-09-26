@@ -3,3 +3,15 @@ pull_request_rules:
     conditions:
       - -draft
     actions: {}
+
+merge_protections_settings:
+  post_comment: false
+
+merge_protections:
+  - name: VM1 R47 native required-check gate
+    if:
+      - author = livastic-vm1-secondary
+      - base = vm1-r47-native-base-260927
+      - title = VM1_R47_NATIVE_260927
+    success_conditions:
+      - review-requested = livastic-vm1-secondary
