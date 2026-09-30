@@ -1,0 +1,23 @@
+name: VM1 App Qualified Legacy Status Producer
+on:
+  push:
+    branches:
+      - vm1-appqual-status-app-261001
+permissions:
+  contents: read
+  statuses: write
+jobs:
+  legacy-status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post legacy status as GitHub Actions
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_SHA: ${{ github.sha }}
+        run: |
+          curl -fsS -X POST \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            -d '{"state":"success","context":"VM1_APPQUAL_STATUS_261001","description":"VM1 controlled GitHub Actions App status"}' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${TARGET_SHA}" >/dev/null
