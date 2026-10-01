@@ -1,0 +1,1 @@
+VM1 R47 current static-read gate 2026-10-01
